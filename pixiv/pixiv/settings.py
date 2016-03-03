@@ -30,7 +30,7 @@ PIXIV_SEARCH_KEYWORD = ''
 PIXIV_SEARCH_PAGES = 5 
 
 #IMAGES STORE
-IMAGES_STORE = '/home/ysh/pic/'
+IMAGES_STORE = ''
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'pixiv (+http://www.yourdomain.com)'
