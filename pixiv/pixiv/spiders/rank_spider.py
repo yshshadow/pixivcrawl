@@ -23,7 +23,18 @@ class RankSpiderSpider(scrapy.Spider):
                 ]
 
     def logged_in(self,response):
-        pass
+        setting = self.settings
+        for page in range(setting['PIXIV_RANK_PAGES']):
+            yield scrapy.Request(generate_rank_url(page+1),callback=self.parse)
 
     def parse(self, response):
         pass
+
+    def generate_detail_url(self,detail_url):
+        pass
+
+    def generate_rank_url(self,page=1,date=datetime.date.today(),mode='daily'):
+        rank_url = 'http://www.pixiv.net/ranking.php?mode={mode}&date={date}&p={page}'
+        #if(isinstance(date,datetime.date)):
+            
+        return rank_url.format(date=date,page=page,mode=mode) 
