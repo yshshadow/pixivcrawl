@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
-
+import datetime
+import pixiv.items import PixivPicItem
 
 class RankSpiderSpider(scrapy.Spider):
     name = "rank_spider"
@@ -16,7 +17,7 @@ class RankSpiderSpider(scrapy.Spider):
                                     formdata = {
                                         'pixiv_id':setting['PIXIV_USER_NAME'],
                                         'pass':setting['PIXIV_USER_PASS'],
-                                        'skip':'1'
+                                        'skip':'1',
                                         'mode':'login'
                                     },
                                     callback=self.logged_in)
@@ -25,7 +26,7 @@ class RankSpiderSpider(scrapy.Spider):
     def logged_in(self,response):
         setting = self.settings
         for page in range(setting['PIXIV_RANK_PAGES']):
-            yield scrapy.Request(generate_rank_url(page+1),callback=self.parse)
+            yield scrapy.Request(self.generate_rank_url(page+1),callback=self.parse)
 
     def parse(self, response):
         pass
