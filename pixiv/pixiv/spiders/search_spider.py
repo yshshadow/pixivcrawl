@@ -3,7 +3,7 @@ import scrapy
 from pixiv.items import PixivPicItem
 
 class PixivSearchSpider(scrapy.Spider):
-    name = "searchspider"
+    name = "search_spider"
     allowed_domains = ["pixiv.net"]
     start_urls = (
         'http://www.pixiv.net/',
