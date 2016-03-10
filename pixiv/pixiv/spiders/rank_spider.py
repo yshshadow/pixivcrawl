@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import datetime
-import pixiv.items import PixivPicItem
+from pixiv.items import PixivPicItem
 
 class RankSpiderSpider(scrapy.Spider):
     name = "rank_spider"
@@ -29,7 +29,15 @@ class RankSpiderSpider(scrapy.Spider):
             yield scrapy.Request(self.generate_rank_url(page+1),callback=self.parse)
 
     def parse(self, response):
-        pass
+        pics = response.xpath('//div[@class="ranking-items adjust"]/section[@class="ranking-item"]')
+        for pic in pics:
+            item = PixivPicItem()
+            item['title'] = pic.xpath('@data-title').extract()
+            item['user_id'] = pic.xpath('@data-user-name').extract()
+            item['user_name'] = pic.xpath('a[@class="user-container ui-profile-popup"]/@data-user_id').extract()
+            item['url'] = pic.xpath('div[@class="ranking-image-item"]/a[@class="work  _work "]/@href').extract()
+            yield item
+            
 
     def generate_detail_url(self,detail_url):
         pass
